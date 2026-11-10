@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ugc-desk",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-06-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "html_handling": "none",
+    "run_worker_first": true
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "DESK", "class_name": "Desk" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Desk"] }],
+  "triggers": { "crons": ["* * * * *"] }
+}

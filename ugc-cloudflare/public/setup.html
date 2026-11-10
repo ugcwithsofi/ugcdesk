@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Подключение Telegram · UGC Desk</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/setup.js"></script>
+</head>
+<body>
+  <main class="login">
+    <section class="login-aside">
+      <div class="mark"><img src="/icon.svg" alt="">UGC desk</div>
+      <div class="eyebrow">Cloudflare Workers</div>
+      <h1>Подключить Telegram</h1>
+      <p>Ключ настройки подтверждает, что ты управляешь этим Worker.</p>
+    </section>
+    <section class="login-box">
+      <form id="setup" class="form panel login-form">
+        <h2>Подключение бота</h2>
+        <p>Введи значение секрета <code>SETUP_KEY</code> из Cloudflare.</p>
+        <label class="field">Ключ настройки
+          <input name="key" type="password" minlength="24" maxlength="128" required autocomplete="off">
+        </label>
+        <button class="btn">Подключить Telegram</button>
+        <p id="result" role="status" aria-live="polite"></p>
+        <a href="/">Открыть кабинет</a>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

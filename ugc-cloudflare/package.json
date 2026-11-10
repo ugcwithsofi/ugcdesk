@@ -1,0 +1,14 @@
+{
+  "name": "ugc-desk-cloudflare",
+  "private": true,
+  "version": "1.3.0",
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "test": "node --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
