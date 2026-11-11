@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ugc-desk",
+  "name": "ugcdesk",
   "main": "worker.mjs",
   "compatibility_date": "2026-06-01",
   "compatibility_flags": ["nodejs_compat"],

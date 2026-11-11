@@ -109,7 +109,7 @@ export class DeskRuntime {
   fetch(request) {
     const url=new URL(request.url);
     if (url.pathname==='/health' && request.method==='GET') return result(200,{
-      ok:true, connected:!!this.config.origin && validToken(this.config.token),
+      ok:true, version:releaseVersion, connected:!!this.config.origin && validToken(this.config.token),
       ownerConfigured:!!this.config.owner, partnerConfigured:!!this.config.partner
     });
     if (url.pathname==='/setup/connect') return this.connect(request,url);
@@ -141,3 +141,4 @@ export class DeskRuntime {
     catch (err) { this.store.put('searchStatus',{at:Date.now(),error:err.message}); }
   }
 }
+import { releaseVersion } from './release.mjs';

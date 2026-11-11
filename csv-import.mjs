@@ -36,14 +36,17 @@ export function readOutreachCsv(input, now=Date.now()) {
     if (cells.length!==header.length) return {line,error:'количество столбцов не совпадает с заголовком'};
     const v=Object.fromEntries(header.map((key,j)=>[key,cells[j]]));
     const email=v.email?.toLowerCase();
-    if (!v.brand || emailAddresses(email)[0]!==email || !email) return {line,error:'нужно название и один email'};
+    if (!v.brand || (email && emailAddresses(email)[0]!==email) || (!email && !v.url && !v.source))
+      return {line,error:'нужно название и email или ссылка'};
     if (v.assignee && !['owner','partner'].includes(v.assignee)) return {line,error:'assignee должен быть owner или partner'};
     if (v.lang && !['DE','EN'].includes(v.lang.toUpperCase())) return {line,error:'lang должен быть DE или EN'};
     const sent=Date.parse(v.sent_at);
     if (v.sent_at && (!/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:\d{2}))?$/.test(v.sent_at) ||
       !Number.isFinite(sent) || sent<=0 || sent>now || new Date(v.sent_at.slice(0,10)+'T00:00:00Z').toISOString().slice(0,10)!==v.sent_at.slice(0,10)))
       return {line,error:'sent_at должен быть фактической датой в формате ГГГГ-ММ-ДД или ISO со смещением'};
-    return {line,input:{name:v.brand,email,url:v.url,lang:v.lang?.toUpperCase(),product:v.product,category:v.category},
+    return {line,input:{name:v.brand,email,url:v.url||(!email?v.source:''),source:v.source,channel:v.channel,
+      applicationDeadline:v.application_deadline,contactReview:v.review==='yes',note:v.note,
+      lang:v.lang?.toUpperCase(),product:v.product,category:v.category},
       outreach:v.sent_at?{sent,assignee:v.assignee||'owner'}:undefined};
   });
 }
